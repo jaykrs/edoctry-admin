@@ -55,8 +55,8 @@
     },
     "blocked": {
       "type": "boolean",
-      "default": false,
-      "configurable": false
+      "default": true,
+      "configurable": true
     },
     "role": {
       "type": "relation",
