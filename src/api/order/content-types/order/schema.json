@@ -35,6 +35,12 @@
     },
     "remarks": {
       "type": "string"
+    },
+    "course_logo":{
+      "type" : "string"
+    },
+    "course_title":{
+      "type":"string"
     }
   }
 }
