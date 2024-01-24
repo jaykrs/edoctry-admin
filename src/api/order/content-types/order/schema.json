@@ -41,6 +41,9 @@
     },
     "course_title":{
       "type":"string"
+    },
+    "oderid":{
+      "type":"integer"
     }
   }
 }
