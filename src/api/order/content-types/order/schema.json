@@ -43,7 +43,7 @@
       "type": "string"
     },
     "oderid": {
-      "type": "integer"
+      "type": "string"
     },
     "country": {
       "type": "string"
