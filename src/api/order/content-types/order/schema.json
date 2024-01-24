@@ -36,14 +36,26 @@
     "remarks": {
       "type": "string"
     },
-    "course_logo":{
-      "type" : "string"
+    "course_logo": {
+      "type": "string"
     },
-    "course_title":{
+    "course_title": {
+      "type": "string"
+    },
+    "oderid": {
+      "type": "integer"
+    },
+    "country": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "address":{
       "type":"string"
     },
-    "oderid":{
-      "type":"integer"
+    "instructor":{
+      "type":"string"
     }
   }
 }
