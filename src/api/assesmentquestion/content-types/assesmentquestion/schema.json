@@ -19,6 +19,12 @@
     },
     "question_id": {
       "type": "integer"
+    },
+    "courseid":{
+      "type":"string"
+    },
+    "course_title":{
+      "type":"string"
     }
   }
 }

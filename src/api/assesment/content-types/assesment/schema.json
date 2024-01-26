@@ -35,6 +35,12 @@
     "isactive": {
       "type": "boolean",
       "default": false
+    },
+    "instructor":{
+      "type" :"string"
+    },
+    "course_title":{
+      "type":"string"
     }
   }
 }
