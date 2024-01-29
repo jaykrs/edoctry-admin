@@ -85,6 +85,21 @@
     },
     "course_title": {
       "type": "string"
+    },
+    "cus_a_answer":{
+      "type":"string"
+    },
+    "cus_b_answer":{
+      "type":"string"
+    },
+    "cus_c_answer":{
+      "type":"string"
+    },
+    "cus_d_answer":{
+      "type":"string"
+    },
+    "cus_e_answer":{
+      "type":"string"
     }
   }
 }
