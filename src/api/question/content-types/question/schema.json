@@ -92,19 +92,24 @@
       "type": "string"
     },
     "cus_a_answer":{
-      "type":"string"
+      "type":"boolean",
+      "default":false
     },
     "cus_b_answer":{
-      "type":"string"
+      "type":"boolean",
+      "default":false
     },
     "cus_c_answer":{
-      "type":"string"
+      "type":"boolean",
+      "default":false
     },
     "cus_d_answer":{
-      "type":"string"
+      "type":"boolean",
+      "default":false
     },
     "cus_e_answer":{
-      "type":"string"
+      "type":"boolean",
+      "default":false
     }
   }
 }
