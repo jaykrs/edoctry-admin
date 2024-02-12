@@ -4,7 +4,8 @@
   "info": {
     "singularName": "score",
     "pluralName": "scores",
-    "displayName": "score"
+    "displayName": "score",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -15,7 +16,7 @@
       "type": "email"
     },
     "customerAnswer": {
-      "type": "blocks"
+      "type": "text"
     }
   }
 }
