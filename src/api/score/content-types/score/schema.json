@@ -14,7 +14,7 @@
     "customeremail": {
       "type": "email"
     },
-    "data": {
+    "customerAnswer": {
       "type": "blocks"
     }
   }
