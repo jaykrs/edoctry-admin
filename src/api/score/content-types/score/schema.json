@@ -38,6 +38,9 @@
     "fullMarks":{
       "type":"integer",
       "default":0
+      },
+      "assesment_title":{
+        "type":"string"
       }
   }
 }
