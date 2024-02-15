@@ -90,26 +90,6 @@
     },
     "course_title": {
       "type": "string"
-    },
-    "cus_a_answer":{
-      "type":"boolean",
-      "default":false
-    },
-    "cus_b_answer":{
-      "type":"boolean",
-      "default":false
-    },
-    "cus_c_answer":{
-      "type":"boolean",
-      "default":false
-    },
-    "cus_d_answer":{
-      "type":"boolean",
-      "default":false
-    },
-    "cus_e_answer":{
-      "type":"boolean",
-      "default":false
     }
   }
 }
