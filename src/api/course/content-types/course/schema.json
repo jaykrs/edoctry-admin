@@ -19,13 +19,15 @@
       "type": "richtext"
     },
     "course_fee": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     },
     "instructor": {
       "type": "string"
     },
     "course_fee_premium": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     },
     "language": {
       "type": "string"
@@ -37,7 +39,8 @@
       "type": "string"
     },
     "duration": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     },
     "course_logo": {
       "type": "string"
@@ -46,7 +49,8 @@
       "type": "richtext"
     },
     "enrollment_count": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     }
   }
 }
