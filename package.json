@@ -16,11 +16,13 @@
     "@strapi/strapi": "4.16.2",
     "better-sqlite3": "8.6.0",
     "crypto": "^1.0.1",
-    "mysql": "2.18.1",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.9.11",
     "razorpay": "^2.9.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "5.3.4",
+    "strapi-plugin-rest-cache": "^4.2.8",
     "styled-components": "5.3.3"
   },
   "author": {
