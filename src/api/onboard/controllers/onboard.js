@@ -1,6 +1,6 @@
 "use strict";
 const RazorPay = require("razorpay");
-const paymentConfig = require("../../../../config/payment");
+const { info } = require("../../../../config/payment");
 const crypto = require("crypto");
 
 
@@ -9,8 +9,8 @@ module.exports = {
     async createPaymentOrder(ctx,next){
         const {amount,currency} = ctx.request.body
         let instance = new RazorPay({
-            key_id:paymentConfig.PAYMENT_KEY_ID,
-            key_secret:paymentConfig.PAYMENT_SECRECT
+            key_id:info.PAYMENT_KEY_ID,
+            key_secret:info.PAYMENT_SECRECT
         })
     await instance.orders.create({
             amount: amount * 100,
@@ -41,7 +41,7 @@ module.exports = {
         }  = ctx.request.body;
 
         const sign = razorpay_order_id + "|" + razorpay_payment_id;
-        const expectedSign = crypto.createHmac("sha256", paymentConfig.PAYMENT_SECRECT).update(sign.toString()).digest("hex")
+        const expectedSign = crypto.createHmac("sha256", info.PAYMENT_SECRECT).update(sign.toString()).digest("hex")
 
         if(razorpay_signature === expectedSign){
             ctx.body = {
