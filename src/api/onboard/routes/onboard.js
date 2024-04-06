@@ -25,6 +25,11 @@ module.exports = {
             method: "GET",
             path: "/onboard/email/token/:email",
             handler: "onboard.generateToken"
+        },
+        {
+            method: "POST",
+            path: "/onboard/fileupload",
+            handler: "onboard.fileUpload"
         }
     ]
 }

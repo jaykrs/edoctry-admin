@@ -8,6 +8,8 @@ const nodemailer = require("nodemailer");
 let axios = require("axios");
 const bcrypt = require("bcrypt");
 var generator = require('generate-password');
+const ImageKit = require("imagekit");
+const fs = require('fs');
 
 module.exports = {
     async createPaymentOrder(ctx, next) {
@@ -75,21 +77,21 @@ module.exports = {
             length: 10,
             numbers: true
         });
-        const hashPassword = await bcrypt.hash(password,10);
+        const hashPassword = await bcrypt.hash(password, 10);
         const entries = await strapi.entityService.findMany('api::template.template', {
             filters: {
-              name: `changedPassword`,
+                name: `changedPassword`,
             },
-          });
-          let templates ="";
+        });
+        let templates = "";
 
-         await entries.forEach( el=>{
+        await entries.forEach(el => {
             templates = el.template;
-          })
-    
+        })
+
         templates = templates.replace("@User_Name", "Dear");
         templates = templates.replace("@User_password", password);
-        await axios.post( emailConfig.brevoUrl, {
+        await axios.post(emailConfig.brevoUrl, {
             //  "data":{  
             "sender": {
                 "name": "Noreply Support",
@@ -221,18 +223,18 @@ module.exports = {
 
         const entries = await strapi.entityService.findMany('api::template.template', {
             filters: {
-              name: `userVerify`,
+                name: `userVerify`,
             },
-          });
-          let templates ="";
+        });
+        let templates = "";
 
-         await entries.forEach( el=>{
+        await entries.forEach(el => {
             templates = el.template;
-          })
+        })
 
-       // templates = templates.replace("@User_Name", "Dear");
+        // templates = templates.replace("@User_Name", "Dear");
         templates = templates.replace("@User_verify", link);
-        await axios.post( emailConfig.brevoUrl, {
+        await axios.post(emailConfig.brevoUrl, {
             //  "data":{  
             "sender": {
                 "name": "Noreply Support",
@@ -290,6 +292,45 @@ module.exports = {
             });
         }
         await getConnection();
+        ctx.body = {
+            success: true,
+            message: "Email sent"
+        }
+    },
+   async  fileUpload( ctx , next) { 
+        console.log(ctx.request.files);
+        var ImageKit = require("imagekit");
+        if (!ctx.request.files) {
+          ctx.response.send({
+            status: false,
+            message: 'No files found'
+          });
+        }
+        var imagekit = new ImageKit({
+          publicKey: emailConfig.publicKey,
+          privateKey: emailConfig.privateKey,
+          urlEndpoint: emailConfig.urlEndpoint
+        });
+    
+        const file = fs.createReadStream(ctx.request.files.file.path);
+        await imagekit.upload({
+          file: file, //required
+          fileName: ctx.request.files.file.name,   //required
+          extensions: [
+            {
+              name: "google-auto-tagging",
+              maxTags: 5,
+              minConfidence: 95
+            }
+          ]
+        }).then(response => {
+          console.log(response);
+          ctx.body = response;
+        }).catch(error => {
+          console.log(error);
+          ctx.body = error;
+        });
+    
+      },
 
-    }
 }
