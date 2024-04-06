@@ -1,10 +1,10 @@
 "use strict";
 const RazorPay = require("razorpay");
-//const { info } = require("../../../../config/payments");
+const emailConfig = require("../../../../config/payments");
 const crypto = require("crypto");
 const mysql = require("mysql");
 const nodemailer = require("nodemailer");
-let emailConfig = require("../../../../config/emailService");
+// let emailConfig = require("../../../../config/emailService");
 let axios = require("axios");
 const bcrypt = require("bcrypt");
 var generator = require('generate-password');
