@@ -1,21 +1,30 @@
 'use strict';
 
-// const { createCoreRouter } = require('@strapi/strapi').factories;
-
-// const router = createCoreRouter("api::onboard.onboard" , [
-
-// ])
-
 module.exports = {
-    routes : [
+    routes: [
         {
-            method:"POST",
-            path:"/onboard/payment",
-            handler:"onboard.createPaymentOrder"
-        },{
+            method: "POST",
+            path: "/onboard/payment",
+            handler: "onboard.createPaymentOrder"
+        }, {
             method: "POST",
             path: "/onboard/payment/verify",
-            handler : "onboard.verifyPayment"
+            handler: "onboard.verifyPayment"
+        },
+        {
+            method: "GET",
+            path: "/onboard/newPassword/:email",
+            handler: "onboard.changePassword"
+        },
+        {
+            method: "GET",
+            path: "/onboard/email/verify/:email/:otp",
+            handler: "onboard.verifyAC"
+        },
+        {
+            method: "GET",
+            path: "/onboard/email/token/:email",
+            handler: "onboard.generateToken"
         }
     ]
 }
