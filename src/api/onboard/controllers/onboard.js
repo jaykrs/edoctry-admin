@@ -1,6 +1,6 @@
 "use strict";
 const RazorPay = require("razorpay");
-const emailConfig = require("../../../../config/payments");
+const emailConfig = require("../../../../config/payment");
 const crypto = require("crypto");
 const mysql = require("mysql");
 const nodemailer = require("nodemailer");
