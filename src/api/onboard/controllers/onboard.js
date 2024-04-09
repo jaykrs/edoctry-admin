@@ -63,11 +63,11 @@ module.exports = {
     },
     async changePassword(ctx, next) {
         let connection = mysql.createConnection({
-            host: "bftoonzu9tfxfcpyfxbc-mysql.services.clever-cloud.com",
-            user: "uqqu6lw0lc3pgjfq",
-            password: "JHhvLdrin53EdythqaxL",
-            database: "bftoonzu9tfxfcpyfxbc",
-            port: 3306
+            host: emailConfig.host,
+            user: emailConfig.user,
+            password: emailConfig.password,
+            database: emailConfig.database,
+            port: emailConfig.port
         })
         var name = null;
         var _email = null;
@@ -118,8 +118,6 @@ module.exports = {
         }).catch(err => {
             console.log("err", err);
         })
-
-
         connection.connect(function (err, next) {
             if (err) {
                 console.log("connection error")
@@ -155,11 +153,11 @@ module.exports = {
     },
     async verifyAC(ctx, next) {
         let connection = mysql.createConnection({
-            host: "bftoonzu9tfxfcpyfxbc-mysql.services.clever-cloud.com",
-            user: "uqqu6lw0lc3pgjfq",
-            password: "JHhvLdrin53EdythqaxL",
-            database: "bftoonzu9tfxfcpyfxbc",
-            port: 3306,
+            host: emailConfig.host,
+            user: emailConfig.user,
+            password: emailConfig.password,
+            database: emailConfig.database,
+            port: emailConfig.port,
             multipleStatements: true
         })
         let off = 0;
@@ -206,11 +204,11 @@ module.exports = {
     async generateToken(ctx, next) {
 
         let connection = mysql.createConnection({
-            host: "bftoonzu9tfxfcpyfxbc-mysql.services.clever-cloud.com",
-            user: "uqqu6lw0lc3pgjfq",
-            password: "JHhvLdrin53EdythqaxL",
-            database: "bftoonzu9tfxfcpyfxbc",
-            port: 3306
+            host: emailConfig.host,
+            user: emailConfig.user,
+            password: emailConfig.password,
+            database: emailConfig.database,
+            port: emailConfig.port
         })
 
         var name = null;
@@ -297,40 +295,130 @@ module.exports = {
             message: "Email sent"
         }
     },
-   async  fileUpload( ctx , next) { 
+    async fileUpload(ctx, next) {
         console.log(ctx.request.files);
         var ImageKit = require("imagekit");
         if (!ctx.request.files) {
-          ctx.response.send({
-            status: false,
-            message: 'No files found'
-          });
+            ctx.response.send({
+                status: false,
+                message: 'No files found'
+            });
         }
         var imagekit = new ImageKit({
-          publicKey: emailConfig.publicKey,
-          privateKey: emailConfig.privateKey,
-          urlEndpoint: emailConfig.urlEndpoint
+            publicKey: emailConfig.publicKey,
+            privateKey: emailConfig.privateKey,
+            urlEndpoint: emailConfig.urlEndpoint
         });
-    
+
         const file = fs.createReadStream(ctx.request.files.file.path);
         await imagekit.upload({
-          file: file, //required
-          fileName: ctx.request.files.file.name,   //required
-          extensions: [
-            {
-              name: "google-auto-tagging",
-              maxTags: 5,
-              minConfidence: 95
-            }
-          ]
+            file: file, //required
+            fileName: ctx.request.files.file.name,   //required
+            extensions: [
+                {
+                    name: "google-auto-tagging",
+                    maxTags: 5,
+                    minConfidence: 95
+                }
+            ]
         }).then(response => {
-          console.log(response);
-          ctx.body = response;
+            console.log(response);
+            ctx.body = response;
         }).catch(error => {
-          console.log(error);
-          ctx.body = error;
+            console.log(error);
+            ctx.body = error;
         });
+
+    },
+    async updatePassword(ctx, next) {
+        let connection = mysql.createConnection({
+            host: emailConfig.host,
+            user: emailConfig.user,
+            password: emailConfig.password,
+            database: emailConfig.database,
+            port: emailConfig.port
+        })
+        var name = null;
+        var _email = null;
+        let resultArray = null;
+        let dynamicInput = "'" + ctx.request.body.email + "'";
+        let password = ctx.request.body.newPassword;
+        let oldPassword = ctx.request.body.oldPassword;
+        const hashPassword = await bcrypt.hash(password, 10);
+        const entries = await strapi.entityService.findMany('api::template.template', {
+            filters: {
+                name: `password_Updated`,
+            },
+        });
+        let templates = "";
+
+        await entries.forEach(el => {
+            templates = el.template;
+        });
+
+        connection.connect(function (err, next) {
+            if (err) {
+                console.log("connection error");
+            }
+
+            connection.query('SELECT * FROM `up_users` WHERE email = ' + dynamicInput + ' limit 1', async (err, rows, fields) => {
+                if (!err) {
+                    resultArray = Object.values(JSON.parse(JSON.stringify(rows)));
+                    //  console.log(resultArray);
+                    name = resultArray[0].username;
+                    _email = resultArray[0].email;
+                    var on = 1;
+                    let isValidPassword = bcrypt.compare(oldPassword, resultArray[0].password);
+                    if (null != dynamicInput && null != _email && null != resultArray && isValidPassword) {
+                        console.log('update started');
+                        var sql = "UPDATE `up_users` SET password = '" + hashPassword + "' WHERE email = " + dynamicInput;
+                        connection.query(sql, function (err, result) {
+                            if (err) { console.log(err) };
+                            console.log(result.affectedRows + " record(s) updated");
+                        })
+                        connection.end();
+                        
+                        await axios.post(emailConfig.brevoUrl, {
+                            //  "data":{  
+                            "sender": {
+                                "name": "Noreply Support",
+                                "email": "noreply@edoctry.com"
+                            },
+                            "to": [
+                                {
+                                    "email": ctx.request.params.email,
+                                    "name": name
+                                }
+                            ],
+                            "subject": "Welcome to Edoctry Learning App",
+                            "htmlContent": templates
     
-      },
+                        }, {
+                            "headers": {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "api-key": emailConfig.api_key
+                            }
+                        }).then(res => {
+                            console.log("result", res.data, res.status);
+                        }).catch(err => {
+                            console.log("err", err);
+                        })
+                    } 
+
+                    
+                }
+
+            });
+
+            console.log("Connection established with database");
+        })
+
+        ctx.body = {
+            sucess:true,
+            message:"updated"
+        }
+
+    }
 
 }

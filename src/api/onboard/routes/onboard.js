@@ -30,6 +30,11 @@ module.exports = {
             method: "POST",
             path: "/onboard/fileupload",
             handler: "onboard.fileUpload"
+        },
+        {
+            method: "PUT",
+            path: "/onboard/update/password",
+            handler : "onboard.updatePassword"
         }
     ]
 }
