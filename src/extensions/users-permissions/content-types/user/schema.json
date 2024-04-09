@@ -67,6 +67,12 @@
     },
     "usertype": {
       "type": "string"
+    },
+    "otp": {
+      "type": "biginteger"
+    },
+    "phoneOtp": {
+      "type": "biginteger"
     }
   }
 }
