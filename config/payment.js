@@ -8,5 +8,10 @@ module.exports = {
     name: "Noreply Support",
     publicKey: "public_GPDrn+MlzmLPiIdSXwVsf8rdQc0=",
     privateKey: "private_1hdDI7nh1ickbPAJVhzAoED4/UU=",
-    urlEndpoint: "https://ik.imagekit.io/jaykrs"
+    urlEndpoint: "https://ik.imagekit.io/jaykrs",
+    host: "bftoonzu9tfxfcpyfxbc-mysql.services.clever-cloud.com",
+    user: "uqqu6lw0lc3pgjfq",
+    password: "JHhvLdrin53EdythqaxL",
+    database: "bftoonzu9tfxfcpyfxbc",
+    port: 3306
 };
