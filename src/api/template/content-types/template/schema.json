@@ -17,6 +17,12 @@
     },
     "template": {
       "type": "richtext"
+    },
+    "json": {
+      "type": "json"
+    },
+    "html_element": {
+      "type": "richtext"
     }
   }
 }
