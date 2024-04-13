@@ -51,6 +51,24 @@
     "enrollment_count": {
       "type": "integer",
       "default": 0
+    },
+    "instrucctorName": {
+      "type": "string"
+    },
+    "assesmentCount": {
+      "type": "string"
+    },
+    "course_requirement": {
+      "type": "richtext"
+    },
+    "course_testimonial": {
+      "type": "richtext"
+    },
+    "rating": {
+      "type": "integer"
+    },
+    "reviewUserCount": {
+      "type": "integer"
     }
   }
 }

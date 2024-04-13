@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * email-key router
+ * config router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::email-key.email-key');
+module.exports = createCoreRouter('api::config.config');

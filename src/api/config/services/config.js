@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * email-key service
+ * config service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::email-key.email-key');
+module.exports = createCoreService('api::config.config');
