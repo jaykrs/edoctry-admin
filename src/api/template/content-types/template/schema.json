@@ -21,8 +21,13 @@
     "json": {
       "type": "json"
     },
-    "html_element": {
-      "type": "richtext"
+    "html": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "rich"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
     }
   }
 }
