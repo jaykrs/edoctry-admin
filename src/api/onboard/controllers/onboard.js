@@ -69,6 +69,12 @@ module.exports = {
             database: emailConfig.database,
             port: emailConfig.port
         })
+        const emailKey = await strapi.entityService.findMany('api::config.config', {
+            filters: {
+                key: `emailKey`,
+            },
+        });
+        let newEmailKey = emailKey[0].value;
         var name = null;
         var _email = null;
         var resultArray = null;
@@ -111,7 +117,8 @@ module.exports = {
             "headers": {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "api-key": emailConfig.api_key
+                "api-key": newEmailKey
+                //"api-key": emailConfig.api_key
             }
         }).then(res => {
             console.log("result", res.data, res.status);
@@ -160,6 +167,7 @@ module.exports = {
             port: emailConfig.port,
             multipleStatements: true
         })
+
         let off = 0;
         var name = null;
         var _email = null;
@@ -210,7 +218,12 @@ module.exports = {
             database: emailConfig.database,
             port: emailConfig.port
         })
-
+        const emailKey = await strapi.entityService.findMany('api::config.config', {
+            filters: {
+                key: `emailKey`,
+            },
+        });
+        let newEmailKey = emailKey[0].value;
         var name = null;
         var _email = null;
         var resultArray = null;
@@ -252,7 +265,8 @@ module.exports = {
             "headers": {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "api-key": emailConfig.api_key
+                "api-key": newEmailKey
+               // "api-key": emailConfig.api_key
             }
         }).then(res => {
             console.log("result", res.data, res.status);
@@ -338,6 +352,12 @@ module.exports = {
             database: emailConfig.database,
             port: emailConfig.port
         })
+        const emailKey = await strapi.entityService.findMany('api::config.config', {
+            filters: {
+                key: `emailKey`,
+            },
+        });
+        let newEmailKey = emailKey[0].value;
         var name = null;
         var _email = null;
         let resultArray = null;
@@ -397,7 +417,8 @@ module.exports = {
                             "headers": {
                                 "Content-Type": "application/json",
                                 "Accept": "application/json",
-                                "api-key": emailConfig.api_key
+                                "api-key": newEmailKey
+                                //"api-key": emailConfig.api_key
                             }
                         }).then(res => {
                             console.log("result", res.data, res.status);
