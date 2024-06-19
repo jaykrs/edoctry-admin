@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = ({ env }) => {
    P_KEY_ID: env('P_KEY_ID', ''),
     P_SECRECT: env('P_SECRECT', ''),
     api_key: env('api_key', ''),
