@@ -6,11 +6,11 @@ module.exports = ({ env }) => {
   const connections = {
     mysql: {
       connection: {
-        host: env('DATABASE_HOST', 'bftoonzu9tfxfcpyfxbc-mysql.services.clever-cloud.com'),
+        host: env('DATABASE_HOST', 'localhost'),
         port: env.int('DATABASE_PORT', 3306),
-        database: env('DATABASE_NAME', 'bftoonzu9tfxfcpyfxbc'),
-        user: env('DATABASE_USERNAME', 'uqqu6lw0lc3pgjfq'),
-        password: env('DATABASE_PASSWORD', 'JHhvLdrin53EdythqaxL'),
+        database: env('DATABASE_NAME', ''),
+        user: env('DATABASE_USERNAME', ''),
+        password: env('DATABASE_PASSWORD', ''),
         ssl: env.bool('DATABASE_SSL', false)
       },
       pool: { min: env.int('DATABASE_POOL_MIN', 2), max: env.int('DATABASE_POOL_MAX', 4) },
