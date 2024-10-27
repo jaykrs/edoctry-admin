@@ -10,13 +10,14 @@ const bcrypt = require("bcrypt");
 var generator = require('generate-password');
 const ImageKit = require("imagekit");
 const fs = require('fs');
+const databaseConfig = require("../../../../config/database");
 
-module.exports = {
+module.exports =  {
     async createPaymentOrder(ctx, next) {
-        const { amount, currency } = ctx.request.body
+        const { amount, currency } = ctx.request.body;
         let instance = new RazorPay({
-            key_id: emailConfig.P_KEY_ID,
-            key_secret: emailConfig.P_SECRECT
+            key_id: strapi.config.server.P_KEY_ID,
+            key_secret: strapi.config.server.P_SECRECT
         })
         await instance.orders.create({
             amount: amount * 100,
@@ -47,7 +48,7 @@ module.exports = {
         } = ctx.request.body;
 
         const sign = razorpay_order_id + "|" + razorpay_payment_id;
-        const expectedSign = crypto.createHmac("sha256", emailConfig.P_SECRECT).update(sign.toString()).digest("hex")
+        const expectedSign = crypto.createHmac("sha256", strapi.config.server.P_SECRECT).update(sign.toString()).digest("hex")
 
         if (razorpay_signature === expectedSign) {
             ctx.body = {
@@ -63,11 +64,11 @@ module.exports = {
     },
     async changePassword(ctx, next) {
         let connection = mysql.createConnection({
-            host: emailConfig.host,
-            user: emailConfig.user,
-            password: emailConfig.password,
-            database: emailConfig.database,
-            port: emailConfig.port
+            host: strapi.config.server.hostD,
+            user: strapi.config.server.user,
+            password: strapi.config.server.password,
+            database: strapi.config.server.database,
+            port: strapi.config.server.portD
         })
         const emailKey = await strapi.entityService.findMany('api::config.config', {
             filters: {
@@ -97,7 +98,7 @@ module.exports = {
 
         templates = templates.replace("@User_Name", "Dear");
         templates = templates.replace("@User_password", password);
-        await axios.post(emailConfig.brevoUrl, {
+        await axios.post(strapi.config.server.brevoUrl, {
             //  "data":{  
             "sender": {
                 "name": "Noreply Support",
@@ -160,11 +161,11 @@ module.exports = {
     },
     async verifyAC(ctx, next) {
         let connection = mysql.createConnection({
-            host: emailConfig.host,
-            user: emailConfig.user,
-            password: emailConfig.password,
-            database: emailConfig.database,
-            port: emailConfig.port,
+            host: strapi.config.server.hostD,
+            user: strapi.config.server.user,
+            password: strapi.config.server.password,
+            database: strapi.config.server.database,
+            port: strapi.config.server.portD,
             multipleStatements: true
         })
 
@@ -212,11 +213,11 @@ module.exports = {
     async generateToken(ctx, next) {
 
         let connection = mysql.createConnection({
-            host: emailConfig.host,
-            user: emailConfig.user,
-            password: emailConfig.password,
-            database: emailConfig.database,
-            port: emailConfig.port
+            host: strapi.config.server.hostD,
+            user: strapi.config.server.user,
+            password: strapi.config.server.password,
+            database: strapi.config.server.database,
+            port: strapi.config.server.portD
         })
         const emailKey = await strapi.entityService.findMany('api::config.config', {
             filters: {
@@ -230,7 +231,7 @@ module.exports = {
         var dynamicInput = "'" + ctx.request.params.email + "'";
         const emailotp = (Math.random() + 1).toString(10).substring(12);
         const phoneotp = (Math.random() + 1).toString(10).substring(12);
-        let link = emailConfig.url + "/api/onboard/email/verify/" + ctx.request.params.email + "/" + emailotp;
+        let link = strapi.config.server.url + "onboard/email/verify/" + ctx.request.params.email + "/" + emailotp;
 
         const entries = await strapi.entityService.findMany('api::template.template', {
             filters: {
@@ -245,7 +246,7 @@ module.exports = {
 
         // templates = templates.replace("@User_Name", "Dear");
         templates = templates.replace("@User_verify", link);
-        await axios.post(emailConfig.brevoUrl, {
+        await axios.post(strapi.config.server.brevoUrl, {
             //  "data":{  
             "sender": {
                 "name": "Noreply Support",
@@ -319,9 +320,9 @@ module.exports = {
             });
         }
         var imagekit = new ImageKit({
-            publicKey: emailConfig.publicKey,
-            privateKey: emailConfig.privateKey,
-            urlEndpoint: emailConfig.urlEndpoint
+            publicKey: strapi.config.server.publicKey,
+            privateKey: strapi.config.server.privateKey,
+            urlEndpoint: strapi.config.server.urlEndpoint
         });
 
         const file = fs.createReadStream(ctx.request.files.file.path);
@@ -346,11 +347,11 @@ module.exports = {
     },
     async updatePassword(ctx, next) {
         let connection = mysql.createConnection({
-            host: emailConfig.host,
-            user: emailConfig.user,
-            password: emailConfig.password,
-            database: emailConfig.database,
-            port: emailConfig.port
+            host: strapi.config.server.hostD,
+            user: strapi.config.server.user,
+            password: strapi.config.server.password,
+            database: strapi.config.server.database,
+            port: strapi.config.server.portD
         })
         const emailKey = await strapi.entityService.findMany('api::config.config', {
             filters: {
@@ -398,7 +399,7 @@ module.exports = {
                         })
                         connection.end();
                         
-                        await axios.post(emailConfig.brevoUrl, {
+                        await axios.post(strapi.config.server.brevoUrl, {
                             //  "data":{  
                             "sender": {
                                 "name": "Noreply Support",

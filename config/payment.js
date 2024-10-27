@@ -2,7 +2,7 @@ module.exports = ({ env }) => ({
    P_KEY_ID: env('P_KEY_ID', ''),
     P_SECRECT: env('P_SECRECT', ''),
     api_key: env('api_key', ''),
-    url: env('app_url', ''),
+    url: "http://api.edoctry.com/",
     brevoUrl: "https://api.brevo.com/v3/smtp/email",
     email: "noreply@edoctry.com",
     name: "Noreply Support",
