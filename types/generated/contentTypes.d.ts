@@ -1645,6 +1645,41 @@ export interface ApiPagemenuPagemenu extends Schema.CollectionType {
   };
 }
 
+export interface ApiPublicassetPublicasset extends Schema.CollectionType {
+  collectionName: 'publicassets';
+  info: {
+    singularName: 'publicasset';
+    pluralName: 'publicassets';
+    displayName: 'publicasset';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    filename: Attribute.String;
+    filepath: Attribute.String;
+    size: Attribute.Integer;
+    author: Attribute.String;
+    type: Attribute.String;
+    publicpath: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::publicasset.publicasset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::publicasset.publicasset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiQuestionQuestion extends Schema.CollectionType {
   collectionName: 'questions';
   info: {
@@ -1815,6 +1850,37 @@ export interface ApiStudentStudent extends Schema.CollectionType {
   };
 }
 
+export interface ApiTaskTask extends Schema.CollectionType {
+  collectionName: 'tasks';
+  info: {
+    singularName: 'task';
+    pluralName: 'tasks';
+    displayName: 'task';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    vendoruuid: Attribute.String;
+    assignedto: Attribute.String;
+    taskdescription: Attribute.RichText;
+    status: Attribute.String;
+    keyword: Attribute.String;
+    author: Attribute.String;
+    completed: Attribute.Boolean;
+    startdt: Attribute.Date;
+    enddt: Attribute.Date;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::task.task', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::task.task', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTemplateTemplate extends Schema.CollectionType {
   collectionName: 'templates';
   info: {
@@ -1934,6 +2000,46 @@ export interface ApiVendoritemVendoritem extends Schema.CollectionType {
   };
 }
 
+export interface ApiVendorsupportVendorsupport extends Schema.CollectionType {
+  collectionName: 'vendorsupports';
+  info: {
+    singularName: 'vendorsupport';
+    pluralName: 'vendorsupports';
+    displayName: 'vendorsupport';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    ticketname: Attribute.String;
+    vendoruuid: Attribute.String;
+    ticketdesc: Attribute.Text;
+    reporteremail: Attribute.String;
+    reporterphone: Attribute.String;
+    attachment: Attribute.String;
+    status: Attribute.String;
+    closed: Attribute.Boolean;
+    createdate: Attribute.Date;
+    ticketworkflow: Attribute.JSON;
+    ticketcomment: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::vendorsupport.vendorsupport',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::vendorsupport.vendorsupport',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiVendostaffVendostaff extends Schema.CollectionType {
   collectionName: 'vendostaffs';
   info: {
@@ -2022,13 +2128,16 @@ declare module '@strapi/types' {
       'api::order.order': ApiOrderOrder;
       'api::page.page': ApiPagePage;
       'api::pagemenu.pagemenu': ApiPagemenuPagemenu;
+      'api::publicasset.publicasset': ApiPublicassetPublicasset;
       'api::question.question': ApiQuestionQuestion;
       'api::recepientlist.recepientlist': ApiRecepientlistRecepientlist;
       'api::score.score': ApiScoreScore;
       'api::student.student': ApiStudentStudent;
+      'api::task.task': ApiTaskTask;
       'api::template.template': ApiTemplateTemplate;
       'api::vendor.vendor': ApiVendorVendor;
       'api::vendoritem.vendoritem': ApiVendoritemVendoritem;
+      'api::vendorsupport.vendorsupport': ApiVendorsupportVendorsupport;
       'api::vendostaff.vendostaff': ApiVendostaffVendostaff;
     }
   }
