@@ -16,7 +16,6 @@
     "@strapi/strapi": "4.16.2",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
-    "better-sqlite3": "8.6.0",
     "crypto": "^1.0.1",
     "generate-password": "^1.7.1",
     "imagekit": "^5.0.1",
